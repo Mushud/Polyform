@@ -1,31 +1,77 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
+#form-parent {
+  margin-top: 20px;
+}
+#form-component-item {
+  padding: 10px;
+}
+
+#question-overview {
+  position: fixed relative;
+  flex-direction: "column";
+  display: flex;
+  padding: 40px;
+  padding-left: 50px;
+  align-items: center;
+  max-height: 100vh;
+}
+
+#answer-input {
+  min-width: 80vh;
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-bottom-color: "silver";
+}
+
+#selection-input {
+  border-style: none;
+}
+
+#selection-input:focus {
+  outline-width: 0;
+}
+
+#answer-input:focus {
+  outline-width: 0;
+}
+
+#question-input {
+  background-color: transparent;
+  margin-top: 5px;
+  border-style: none;
+
+  width: 100%;
+  color: black;
+  font-weight: 400;
+}
+
+#question-input:focus {
+  outline-width: 0;
+}
+
+#component-item :hover {
+  background-color: rgb(238, 236, 236);
+}
+
+#question-container {
+  padding-top: 10px;
+}
+
+#side-bar-menu {
+  background-color: rgb(234, 243, 253);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+#form-tree {
+  background-color: rgb(245, 174, 174);
+  height: 100vh;
+  padding: 20px;
 }
 
 @keyframes App-logo-spin {
