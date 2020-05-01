@@ -395,17 +395,12 @@ function App() {
                         });
 
                         const newArray = questions;
-                        newArray[index] =
-                          currentQuestion.item.type !== "multiple-choice"
-                            ? {
-                                type: newArray[index].type,
+                        newArray[index] = {
+                          type: newArray[index].type,
+                          key: newArray[index].key,
+                          question: e.target.value,
+                        };
 
-                                question: e.target.value,
-                              }
-                            : {
-                                type: newArray[index].type,
-                                question: e.target.value,
-                              };
                         setQuestions(newArray);
 
                         // console.log(currentQuestion);
