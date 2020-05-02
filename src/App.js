@@ -1,12 +1,22 @@
 import React from "react";
-import { Button, Popover, Checkbox, Popconfirm, message, Drawer } from "antd";
+import {
+  Button,
+  Popover,
+  Checkbox,
+  Popconfirm,
+  message,
+  Drawer,
+  Skeleton,
+} from "antd";
 import JSONPretty from "react-json-pretty";
+import { Polyform } from "polyform-generator";
 import {
   PlusOutlined,
   DeleteFilled,
   PullRequestOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
+import "polyform-generator/dist/index.css";
 import "./App.css";
 
 const formComponenets = [
@@ -36,12 +46,14 @@ function App() {
   const [visiblePopover, setPopoverVisible] = React.useState(false);
   const [currentQuestion, setCurrentQuestion] = React.useState(null);
   const [drawerVisible, setDrawarVisibilty] = React.useState(false);
+  const [polyform, setPolyformVisibilty] = React.useState(false);
 
   function generateFormObject() {
     return {
       container: {
         backgroudColor: "white",
-        title: "Sample Form",
+        title: "Sample Form Title",
+        tintColor: "#fc0398",
       },
       questions,
       selections,
@@ -274,7 +286,10 @@ function App() {
               <form class="form-inline my-2 my-lg-0">
                 {questions.length > 0 ? (
                   <>
-                    <Button icon={<EyeOutlined />} />
+                    <Button
+                      onClick={() => setPolyformVisibilty(true)}
+                      icon={<EyeOutlined />}
+                    />
                     <Button onClick={() => setDrawarVisibilty(true)}>
                       Generate Form
                     </Button>
@@ -322,7 +337,9 @@ function App() {
                   />
                 )}
               </div>
-            ) : null}
+            ) : (
+              <Skeleton active />
+            )}
           </div>
 
           <div className="col-4" id="side-bar-menu">
@@ -482,6 +499,16 @@ function App() {
           visible={drawerVisible}
         >
           <JSONPretty id="json-pretty" data={generateFormObject()}></JSONPretty>
+        </Drawer>
+
+        <Drawer
+          width={800}
+          placement="left"
+          closable={true}
+          onClose={() => setPolyformVisibilty(false)}
+          visible={polyform}
+        >
+          <Polyform form={generateFormObject()} />
         </Drawer>
       </header>
     </div>

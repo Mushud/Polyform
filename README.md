@@ -1,4 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Polyform, Generate and Render your your form
+
+> Generate your beautify forms
+
+> You can generate a form object from
+> [Polyform Builder](https:polyform.netlify.com)
+
+[![NPM](https://img.shields.io/npm/v/polyform-generator.svg)](https://www.npmjs.com/package/polyform-generator) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 ## Available Scripts
 
