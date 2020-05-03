@@ -7,9 +7,11 @@ import {
   message,
   Drawer,
   Skeleton,
+  Tooltip,
 } from "antd";
 import JSONPretty from "react-json-pretty";
 import { Polyform } from "polyform-generator";
+import { TwitterPicker } from "react-color";
 import {
   PlusOutlined,
   DeleteFilled,
@@ -48,12 +50,18 @@ function App() {
   const [drawerVisible, setDrawarVisibilty] = React.useState(false);
   const [polyform, setPolyformVisibilty] = React.useState(false);
 
+  const [tintColor, setTintColor] = React.useState("#fc0398");
+  const [showtintColor, setShowTintColor] = React.useState(false);
+  const [formTitle, setFormTitle] = React.useState("");
+  const [formDescription, setformDescription] = React.useState("");
+
   function generateFormObject() {
     return {
       container: {
         backgroudColor: "white",
-        title: "Sample Form Title",
-        tintColor: "#fc0398",
+        title: formTitle,
+        tintColor: tintColor,
+        about: formDescription,
       },
       questions,
       selections,
@@ -162,11 +170,13 @@ function App() {
       (element) => element.questionIndex === index
     );
 
-    return selections[mSelect].selections.map((choice, n = index) => (
-      <div>
-        <Checkbox>{choice}</Checkbox>
-      </div>
-    ));
+    if (mSelect !== -1) {
+      return selections[mSelect].selections.map((choice, n = index) => (
+        <div>
+          <Checkbox>{choice}</Checkbox>
+        </div>
+      ));
+    } else return null;
   }
 
   function getSelections(index) {
@@ -250,7 +260,7 @@ function App() {
       <header className="App-header">
         <div>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a className="navbar-brand" href="http://polyform.io">
+            <a className="navbar-brand" href="/">
               Polyform
             </a>
             <button
@@ -286,10 +296,13 @@ function App() {
               <form class="form-inline my-2 my-lg-0">
                 {questions.length > 0 ? (
                   <>
-                    <Button
-                      onClick={() => setPolyformVisibilty(true)}
-                      icon={<EyeOutlined />}
-                    />
+                    <Tooltip title="Preview Form">
+                      <Button
+                        style={{ marginRight: "10px" }}
+                        onClick={() => setPolyformVisibilty(true)}
+                        icon={<EyeOutlined />}
+                      />
+                    </Tooltip>
                     <Button onClick={() => setDrawarVisibilty(true)}>
                       Generate Form
                     </Button>
@@ -345,8 +358,53 @@ function App() {
           <div className="col-4" id="side-bar-menu">
             <div id="header">
               <center>
-                <h4>New Polyform</h4>
+                <input
+                  style={{ textAlign: "center" }}
+                  onChange={(e) => setFormTitle(e.target.value)}
+                  type="text"
+                  id="form-title"
+                  placeholder="Form title here"
+                  defaultValue={formTitle}
+                />
+                <input
+                  style={{ textAlign: "center", fontSize: "10pt" }}
+                  onChange={(e) => setformDescription(e.target.value)}
+                  type="text"
+                  id="form-title"
+                  placeholder="Description here"
+                  defaultValue={formTitle}
+                />
               </center>
+
+              <center style={{ margin: "20px" }}>
+                <Popover
+                  destroyTooltipOnHide
+                  trigger="click"
+                  visible={showtintColor}
+                  content={
+                    <TwitterPicker
+                      onChange={(e) => {
+                        setTintColor(e.hex);
+                        setShowTintColor(false);
+                      }}
+                    />
+                  }
+                  title="Pick tint color"
+                >
+                  <div
+                    onClick={() => setShowTintColor(true)}
+                    style={{
+                      height: "20px",
+                      width: "20px",
+                      backgroundColor: tintColor,
+                      borderRadius: "10px",
+                      borderColor: "rgb(249,249,249)",
+                      borderWidth: "2px",
+                    }}
+                  />
+                </Popover>
+              </center>
+
               <center>
                 <Popover
                   visible={visiblePopover}
@@ -464,16 +522,40 @@ function App() {
                               (element) => element.questionIndex == index
                             );
 
-                            console.log(mSelect);
+                            // console.log(mSelect);
 
-                            // setSelections(
-                            //   selections.filter(
-                            //     (e) => e.key !== selections[mSelect].key
-                            //   )
-                            // );
+                            setCurrentQuestion({});
+
+                            setSelections(
+                              selections.filter(
+                                (e) => e.key !== selections[mSelect].key
+                              )
+                            );
                           }
 
-                          setCurrentQuestion(null);
+                          if (item.type !== "multiple-choice") {
+                            let restContainsMultipleQuestions = false;
+                            for (var i = 0; i < questions.length; i++) {
+                              if (questions[i].type === "multiple-choice") {
+                                restContainsMultipleQuestions = true;
+                              }
+                            }
+
+                            if (restContainsMultipleQuestions) {
+                              let currentSelections = selections;
+                              for (
+                                var i = 0;
+                                i < currentSelections.length;
+                                i++
+                              ) {
+                                currentSelections[i].questionIndex =
+                                  currentSelections[i].questionIndex - 1;
+                              }
+
+                              setSelections(currentSelections);
+                            }
+                          }
+
                           message.success("Question Deleted");
                         }}
                         okText="Yes"

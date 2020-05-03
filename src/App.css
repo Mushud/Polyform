@@ -11,6 +11,18 @@
   padding: 10px;
 }
 
+#form-title {
+  border-style: none;
+  font-size: 18pt;
+  background-color: transparent;
+  text-align: "right";
+  width: 100%;
+}
+
+#form-title:focus {
+  outline-width: 0;
+}
+
 #question-overview {
   position: fixed relative;
   flex-direction: "column";
