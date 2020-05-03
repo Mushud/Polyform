@@ -351,11 +351,19 @@ function App() {
                 )}
               </div>
             ) : (
-              <Skeleton active />
+              <Skeleton active loading />
             )}
           </div>
 
-          <div className="col-4" id="side-bar-menu">
+          <div
+            className="col-4"
+            id="side-bar-menu"
+            style={{
+              borderLeftColor: tintColor,
+              borderLeftWidth: "8px",
+              borderLeftStyle: "solid",
+            }}
+          >
             <div id="header">
               <center>
                 <input
@@ -372,7 +380,7 @@ function App() {
                   type="text"
                   id="form-title"
                   placeholder="Description here"
-                  defaultValue={formTitle}
+                  defaultValue={formDescription}
                 />
               </center>
 
@@ -584,6 +592,7 @@ function App() {
         </Drawer>
 
         <Drawer
+          destroyOnClose
           width={800}
           placement="left"
           closable={true}
