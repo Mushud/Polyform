@@ -18,6 +18,8 @@ import {
   PullRequestOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
+import axios from "axios";
+import config from "./config";
 import "polyform-generator/dist/index.css";
 import "./App.css";
 
@@ -49,14 +51,21 @@ function App() {
   const [currentQuestion, setCurrentQuestion] = React.useState(null);
   const [drawerVisible, setDrawarVisibilty] = React.useState(false);
   const [polyform, setPolyformVisibilty] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
 
   const [tintColor, setTintColor] = React.useState("#fc0398");
   const [showtintColor, setShowTintColor] = React.useState(false);
   const [formTitle, setFormTitle] = React.useState("");
   const [formDescription, setformDescription] = React.useState("");
+  const [mda, setMDA] = React.useState("");
+  const [formPublished, setFormPublished] = React.useState(false);
+  const [formPublishID, setPublishID] = React.useState("");
 
   function generateFormObject() {
     return {
+      properties: {
+        mda,
+      },
       container: {
         backgroudColor: "white",
         title: formTitle,
@@ -177,6 +186,22 @@ function App() {
         </div>
       ));
     } else return null;
+  }
+
+  async function publishForm() {
+    const formObject = generateFormObject();
+    setLoading(true);
+    try {
+      const res = await axios.post(`${config.api}/addForm`, {
+        formObject: formObject,
+      });
+      setFormPublished(true);
+      setPublishID(res.data);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+      message.error(e.message);
+    }
   }
 
   function getSelections(index) {
@@ -374,6 +399,7 @@ function App() {
                   placeholder="Form title here"
                   defaultValue={formTitle}
                 />
+
                 <input
                   style={{ textAlign: "center", fontSize: "10pt" }}
                   onChange={(e) => setformDescription(e.target.value)}
@@ -381,6 +407,14 @@ function App() {
                   id="form-title"
                   placeholder="Description here"
                   defaultValue={formDescription}
+                />
+                <input
+                  style={{ textAlign: "center", fontSize: "14pt" }}
+                  onChange={(e) => setMDA(e.target.value)}
+                  type="text"
+                  id="form-title"
+                  placeholder="Enter MDA name here"
+                  defaultValue={mda}
                 />
               </center>
 
@@ -588,9 +622,30 @@ function App() {
           onClose={() => setDrawarVisibilty(false)}
           visible={drawerVisible}
         >
-          <JSONPretty id="json-pretty" data={generateFormObject()}></JSONPretty>
-        </Drawer>
+          <div>
+            <JSONPretty id="json-pretty" data={generateFormObject()} />
+            <div>
+              <h4 style={{ color: "green" }}>Go Live</h4>
+              <Button
+                loading={loading}
+                onClick={async () => await publishForm()}
+                type="primary"
+              >
+                Publish
+              </Button>
 
+              {formPublished ? (
+                <a
+                  target="_blank"
+                  href={`https://polyform-inventory.netlify.app/form/${formPublishID}`}
+                >
+                  {" "}
+                  Check form Out
+                </a>
+              ) : null}
+            </div>
+          </div>
+        </Drawer>
         <Drawer
           destroyOnClose
           width={800}
