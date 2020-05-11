@@ -7805,10 +7805,10 @@ pnp-webpack-plugin@1.6.4:
   dependencies:
     ts-pnp "^1.1.6"
 
-polyform-generator@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/polyform-generator/-/polyform-generator-1.0.2.tgz#fe18ea5e6f20c88ddb8991f20c5ac5bd54a167b8"
-  integrity sha512-6jCp2XI/6wayKW83eyRHmjh7LJl0OWo9ihhn9cq10U+SFatjbXYGs8LP6ufVkn/rGVt/silzxlCWL7TbACDC0Q==
+polyform-generator@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/polyform-generator/-/polyform-generator-1.0.8.tgz#b2b89f8389f219fcfe85a2f39768297ceac0f002"
+  integrity sha512-b8jewF89nCsHX8mx+kcUju7wpC+PiW3R0Fzl8od0W5utoKwOOxYXbucWasIKnsSWb428s5Oyvg5NTrQcLK1QGA==
   dependencies:
     "@babel/runtime" "^7.9.6"
     antd "^4.2.0"

@@ -10,7 +10,7 @@
     "antd": "^4.2.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
-    "polyform-generator": "^1.0.0",
+    "polyform-generator": "^1.0.8",
     "react": "^16.13.1",
     "react-color": "^2.18.0",
     "react-dom": "^16.13.1",
