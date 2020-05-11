@@ -583,6 +583,11 @@ function App() {
                               }
                             }
 
+                            console.log({ index, length: questions.length });
+                            if (index == questions.length - 1) {
+                              restContainsMultipleQuestions = false;
+                            }
+
                             if (restContainsMultipleQuestions) {
                               let currentSelections = selections;
                               for (
