@@ -167,7 +167,7 @@ function App() {
           ])
         : setSelections([...selections, selectionObject]);
 
-      console.log(selections);
+      // console.log(selections);
       setCurrentQuestion({ item: questionObject, index: questions.length });
 
       setPopoverVisible(false);
@@ -583,7 +583,7 @@ function App() {
                               }
                             }
 
-                            console.log({ index, length: questions.length });
+                            // console.log({ index, length: questions.length });
                             if (index == questions.length - 1) {
                               restContainsMultipleQuestions = false;
                             }
