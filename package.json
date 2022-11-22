@@ -15,7 +15,7 @@
     "react-color": "^2.18.0",
     "react-dom": "^16.13.1",
     "react-json-pretty": "^2.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "5.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
